@@ -425,6 +425,7 @@ impl EntityWriter {
     pub fn gen_import(with_serde: &WithSerde) -> TokenStream {
         let prelude_import = quote!(
             use sea_orm::entity::prelude::*;
+            use sdp_macros_derive::DeriveThanosRelatedEntity;
         );
 
         match with_serde {
@@ -659,7 +660,7 @@ impl EntityWriter {
         let related_attrs = entity.get_related_entity_attrs();
 
         quote! {
-            #[derive(Copy, Clone, Debug, EnumIter, DeriveRelatedEntity)]
+            #[derive(Copy, Clone, Debug, EnumIter, DeriveRelatedEntity, DeriveThanosRelatedEntity)]
             pub enum RelatedEntity {
                 #(
                     #related_attrs

@@ -125,10 +125,15 @@ impl Entity {
         // 1st step get conjunct relations data
         let conjunct_related_attrs = self.conjunct_relations.iter().map(|conj| {
             let entity = format!("super::{}::Entity", conj.get_to_snake_case());
+            let active_model = format!("super::{}::ActiveModel", conj.get_to_snake_case());
 
             quote! {
                 #[sea_orm(
                     entity = #entity
+                )]
+                #[thanos_sea_orm(
+                    entity = #entity,
+                    active_model = #active_model
                 )]
             }
         });
@@ -140,6 +145,10 @@ impl Entity {
                 None => String::from("Entity"),
             };
 
+            let active_model = match rel.get_module_name() {
+                Some(module_name) => format!("super::{}::ActiveModel", module_name),
+                None => String::from("ActiveModel"),
+            };
             if rel.self_referencing || !rel.impl_related || rel.num_suffix > 0 {
                 let def = if reverse {
                     format!("Relation::{}.def().rev()", rel.get_enum_name())
@@ -152,11 +161,20 @@ impl Entity {
                         entity = #entity,
                         def = #def
                     )]
+                    #[thanos_sea_orm(
+                        entity = #entity,
+                        active_model = #active_model,
+                        def = #def
+                    )]
                 }
             } else {
                 quote! {
                     #[sea_orm(
                         entity = #entity
+                    )]
+                    #[thanos_sea_orm(
+                        entity = #entity,
+                        active_model = #active_model
                     )]
                 }
             }
