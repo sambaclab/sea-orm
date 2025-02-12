@@ -2,7 +2,7 @@
 # A separate workspace
 
 [package]
-name = "sea-orm-cli"
+name = "thanos-sea-orm-cli"
 version = "1.1.10"
 authors = [
     "Chris Tsang <chris.2y3@outlook.com>",
