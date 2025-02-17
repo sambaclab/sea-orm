@@ -126,6 +126,9 @@ impl Entity {
         let conjunct_related_attrs = self.conjunct_relations.iter().map(|conj| {
             let entity = format!("super::{}::Entity", conj.get_to_snake_case());
             let active_model = format!("super::{}::ActiveModel", conj.get_to_snake_case());
+            let related_entity_iter =
+                format!("super::{}::RelatedEntityIter", conj.get_to_snake_case());
+            let related_entity = format!("super::{}::RelatedEntity", conj.get_to_snake_case());
 
             quote! {
                 #[sea_orm(
@@ -133,7 +136,9 @@ impl Entity {
                 )]
                 #[thanos_sea_orm(
                     entity = #entity,
-                    active_model = #active_model
+                    active_model = #active_model,
+                    related_entity_iter = #related_entity_iter,
+                    related_entity = #related_entity
                 )]
             }
         });
@@ -149,6 +154,17 @@ impl Entity {
                 Some(module_name) => format!("super::{}::ActiveModel", module_name),
                 None => String::from("ActiveModel"),
             };
+
+            let related_entity_iter = match rel.get_module_name() {
+                Some(module_name) => format!("super::{}::RelatedEntityIter", module_name),
+                None => String::from("RelatedEntityIter"),
+            };
+
+            let related_entity = match rel.get_module_name() {
+                Some(module_name) => format!("super::{}::RelatedEntity", module_name),
+                None => String::from("RelatedEntityIter"),
+            };
+
             if rel.self_referencing || !rel.impl_related || rel.num_suffix > 0 {
                 let def = if reverse {
                     format!("Relation::{}.def().rev()", rel.get_enum_name())
@@ -164,6 +180,8 @@ impl Entity {
                     #[thanos_sea_orm(
                         entity = #entity,
                         active_model = #active_model,
+                        related_entity_iter = #related_entity_iter,
+                        related_entity = #related_entity,
                         def = #def
                     )]
                 }
@@ -175,6 +193,8 @@ impl Entity {
                     #[thanos_sea_orm(
                         entity = #entity,
                         active_model = #active_model
+                        related_entity_iter = #related_entity_iter,
+                        related_entity = #related_entity
                     )]
                 }
             }
