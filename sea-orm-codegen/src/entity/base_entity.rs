@@ -162,7 +162,7 @@ impl Entity {
 
             let related_entity = match rel.get_module_name() {
                 Some(module_name) => format!("super::{}::RelatedEntity", module_name),
-                None => String::from("RelatedEntityIter"),
+                None => String::from("RelatedEntity"),
             };
 
             if rel.self_referencing || !rel.impl_related || rel.num_suffix > 0 {
