@@ -426,6 +426,7 @@ impl EntityWriter {
         let prelude_import = quote!(
             use sea_orm::entity::prelude::*;
             use sdp_macros_derive::DeriveThanosRelatedEntity;
+            use sea_orm::Iterable;
         );
 
         match with_serde {
