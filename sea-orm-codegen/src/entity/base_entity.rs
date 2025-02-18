@@ -272,6 +272,7 @@ impl Entity {
             match col_type {
                 ColumnType::Float | ColumnType::Double => true,
                 ColumnType::Array(col_type) => is_floats(col_type),
+                ColumnType::Vector(_) => true,
                 _ => false,
             }
         }
