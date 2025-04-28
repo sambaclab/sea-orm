@@ -63,7 +63,7 @@ impl Column {
                     DateTimeCrate::Time => "TimeDateTime".to_owned(),
                 },
                 ColumnType::TimestampWithTimeZone => match date_time_crate {
-                    DateTimeCrate::Chrono => "DateTimeWithTimeZone".to_owned(),
+                    DateTimeCrate::Chrono => "DateTimeUtc".to_owned(),
                     DateTimeCrate::Time => "TimeDateTimeWithTimeZone".to_owned(),
                 },
                 ColumnType::Decimal(_) | ColumnType::Money(_) => "Decimal".to_owned(),
