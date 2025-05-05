@@ -1,6 +1,6 @@
 pub use crate::error::TryGetError;
 use crate::{
-    error::{json_err, type_err, DbErr},
+    error::{type_err, DbErr},
     SelectGetableValue, SelectorRaw, Statement,
 };
 use std::fmt;

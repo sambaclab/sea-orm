@@ -23,18 +23,23 @@ path = "src/lib.rs"
 async-trait = { version = "0.1", default-features = false }
 clap = { version = "4.3", features = ["env", "derive"], optional = true }
 dotenvy = { version = "0.15", default-features = false, optional = true }
-sea-orm = { version = "~1.1.10", path = "../", default-features = false, features = ["macros"] }
-sea-orm-cli = { version = "~1.1.10", path = "../sea-orm-cli", default-features = false, optional = true }
+sea-orm = { version = "~1.1.10", path = "../", default-features = false, features = [
+  "macros",
+] }
+thanos-sea-orm-cli = { version = "~1.1.10", path = "../thanos-sea-orm-cli", default-features = false, optional = true }
 sea-schema = { version = "0.16.0" }
 tracing = { version = "0.1", default-features = false, features = ["log"] }
-tracing-subscriber = { version = "0.3.17", default-features = false, features = ["env-filter", "fmt"] }
+tracing-subscriber = { version = "0.3.17", default-features = false, features = [
+  "env-filter",
+  "fmt",
+] }
 
 [dev-dependencies]
 async-std = { version = "1", features = ["attributes", "tokio1"] }
 
 [features]
 default = ["cli"]
-cli = ["clap", "dotenvy", "sea-orm-cli/cli"]
+cli = ["clap", "dotenvy", "thanos-sea-orm-cli/cli"]
 sqlx-mysql = ["sea-orm/sqlx-mysql"]
 sqlx-postgres = ["sea-orm/sqlx-postgres"]
 sqlx-sqlite = ["sea-orm/sqlx-sqlite"]
