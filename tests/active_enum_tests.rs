@@ -163,7 +163,7 @@ pub async fn insert_active_enum(db: &DatabaseConnection) -> Result<(), DbErr> {
             r#""active_enum"."color","#,
             r#"CAST("active_enum"."tea" AS text)"#,
             r#"FROM "public"."active_enum""#,
-            r#"WHERE "active_enum"."tea" IN (CAST('EverydayTea' AS tea), CAST('BreakfastTea' AS tea))"#,
+            r#"WHERE "active_enum"."tea" IN (CAST('EverydayTea' AS "tea"), CAST('BreakfastTea' AS "tea"))"#,
         ]
         .join(" ")
     );
