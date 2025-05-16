@@ -661,7 +661,7 @@ impl EntityWriter {
         let related_attrs = entity.get_related_entity_attrs();
 
         quote! {
-            #[derive(Copy, Clone, Debug, EnumIter, DeriveRelatedEntity, DeriveThanosRelatedEntity)]
+            #[derive(Copy, Clone, Debug, EnumIter, DeriveThanosRelatedEntity)]
             pub enum RelatedEntity {
                 #(
                     #related_attrs
