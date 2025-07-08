@@ -131,9 +131,6 @@ impl Entity {
             let related_entity = format!("super::{}::RelatedEntity", conj.get_to_snake_case());
 
             quote! {
-                #[sea_orm(
-                    entity = #entity
-                )]
                 #[thanos_sea_orm(
                     entity = #entity,
                     active_model = #active_model,
@@ -173,10 +170,6 @@ impl Entity {
                 };
 
                 quote! {
-                    #[sea_orm(
-                        entity = #entity,
-                        def = #def
-                    )]
                     #[thanos_sea_orm(
                         entity = #entity,
                         active_model = #active_model,
@@ -187,9 +180,6 @@ impl Entity {
                 }
             } else {
                 quote! {
-                    #[sea_orm(
-                        entity = #entity
-                    )]
                     #[thanos_sea_orm(
                         entity = #entity,
                         active_model = #active_model
